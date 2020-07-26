@@ -26,7 +26,7 @@ Hm. I can tell you how I'm running this on my OSX machine. The makefile and such
 * libcurl
 
 ```
-git clone <todo - git url>
+git clone https://github.com/IsaacBell/Stock-Scraper.git
 cd stock-scraper
 
 # OSX
