@@ -16,7 +16,7 @@ Initial target algorithms are Time-Weighted Average Price (TWAP) and Volume-Weig
 
 ## Installation
 
-Hm. I can tell you how I'm running this on my OSX machine. The makefile and such will probably need some tweaking for cross-platform utility.
+Hm. I can tell you how I'm running this on my OSX machine (yes). The makefile and such will probably need some tweaking for cross-platform utility.
 
 ### Tools You Will Need (OSX)
 

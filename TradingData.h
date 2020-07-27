@@ -83,7 +83,8 @@ private:
 
 	std::thread p_thread[N_FUNCTIONS];
 	static ConnectHttp connect;
-	Date date;	
+	Date date;
+  std::string TMP_DIR;
 };
 
 ConnectHttp TradingData::connect;
@@ -92,12 +93,12 @@ TradingData::TradingData(std::string name):
 	name(name),
 	date()
 {
-	std::string Company_path = ConnectHttp::path; 
-	File::mkdir(Company_path);
-	Company_path+=name;
-	File::mkdir(Company_path);
+  
+	std::string TMP_DIR = "./tmp/";
+	File::mkdir(TMP_DIR);
+	TMP_DIR += name;
+	File::mkdir(TMP_DIR);
 }
-
 
 TradingData::~TradingData()
 {
@@ -108,7 +109,7 @@ void TradingData::Book()
 	bool overwrite = true;
 	std::string c_path = ConnectHttp::path + name + "/Book";
 	File::mkdir(c_path);
-	c_path+="/Book" + EXT;
+	c_path += "/Book" + EXT;
 	std::string c_url = ConnectHttp::URL + name + "/book";
 	if(overwrite||!File::isFile(c_path))
 	connect.RequestWriteJson(c_url, c_path);
@@ -124,7 +125,7 @@ void TradingData::Charts()
 	std::string c_url = ConnectHttp::URL + name + "/chart/" + _Range[Date::__range];
 	c_path = c_path + "/Chart";
 	File::mkdir(c_path);
-	c_path+="/chart"+EXT;
+	c_path += "/chart"+EXT;
 	connect.RequestAddJson(c_url, c_path,"date");
 
 	c_path = ConnectHttp::path + name +"/Chart_1d";
@@ -145,12 +146,19 @@ inline void TradingData::Company()
 {
 	bool overwrite = false;
 	std::string c_path = ConnectHttp::path + name + "/Company/";
+	// std::string c_path = "./tmp/";
+  std::string parentPath = ConnectHttp::path + name;
+	File::mkdir(parentPath);
 	File::mkdir(c_path);
-	c_path+="Company" + EXT;
-	std::string c_url = ConnectHttp::URL + name + "/company";
+	c_path += "Company" + EXT;
+
+  std::string c_url = ConnectHttp::URL + "/stock/" + name +
+                      "/company&token=Tsk_1dca226bcce74017b97ae6beaa4291c8";
+  printf("%s", c_url.c_str());
+
 	if(overwrite||!File::isFile(c_path))
 	connect.RequestWriteJson(c_url, c_path);
-	std::cout << "Company: status{finished}\n";
+	std::cout << "\n\nCompany: status{finished}\n";
 }
 
 inline void TradingData::Dividends()
@@ -158,7 +166,7 @@ inline void TradingData::Dividends()
 	bool overwrite = true;
 	std::string c_path = ConnectHttp::path + name + "/Dividends";
 	File::mkdir(c_path);
-	c_path+="/Dividends" + EXT;
+	c_path += "/Dividends" + EXT;
 	std::string c_url = ConnectHttp::URL + name + "/dividends/5y";
 	if(overwrite||!File::isFile(c_path))
 	connect.RequestWriteJson(c_url, c_path);
@@ -170,7 +178,7 @@ void TradingData::Earnings()
 	bool overwrite = true;
 	std::string c_path = ConnectHttp::path + name + "/Earnings";
 	File::mkdir(c_path);
-	c_path+="/Earnings" + EXT;
+	c_path += "/Earnings" + EXT;
 	std::string c_url = ConnectHttp::URL + name + "/earnings";
 	if(overwrite||!File::isFile(c_path))
 	connect.RequestWriteJson(c_url, c_path);
@@ -182,7 +190,7 @@ void TradingData::EffectiveSpread()
 	bool overwrite = true;
 	std::string c_path = ConnectHttp::path + name + "/EffectiveSpread";
 	File::mkdir(c_path);
-	c_path+="/EffectiveSpread" + EXT;
+	c_path += "/EffectiveSpread" + EXT;
 	std::string c_url = ConnectHttp::URL + name + "/effective-spread";
 	if(overwrite||!File::isFile(c_path))
 	connect.RequestWriteJson(c_url, c_path);
@@ -194,7 +202,7 @@ inline void TradingData::Financials()
 	bool overwrite = true;
 	std::string c_path = ConnectHttp::path + name + "/Financials";
 	File::mkdir(c_path);
-	c_path+="/Financials" + EXT;
+	c_path += "/Financials" + EXT;
 	std::string c_url = ConnectHttp::URL + name + "/finacials";
 	if(overwrite||!File::isFile(c_path))
 	connect.RequestWriteJson(c_url, c_path);
@@ -206,7 +214,7 @@ inline void TradingData::KeyStats()
 	bool overwrite = true;
 	std::string c_path = ConnectHttp::path + name + "/Stats/";
 	File::mkdir(c_path);
-	c_path+="Stats" + EXT;
+	c_path += "Stats" + EXT;
 	std::string c_url = ConnectHttp::URL + name + "/stats";
 	if(overwrite||!File::isFile(c_path))
 	connect.RequestWriteJson(c_url, c_path);
@@ -218,7 +226,7 @@ inline void TradingData::LargestTrades()
 	bool overwrite = true;
 	std::string c_path = ConnectHttp::path + name + "/LargestTrades/";
 	File::mkdir(c_path);
-	c_path+="LargestTrades" + EXT;
+	c_path += "LargestTrades" + EXT;
 	std::string c_url = ConnectHttp::URL + name + "/largest-trades";
 	if(overwrite||!File::isFile(c_path))
 	connect.RequestWriteJson(c_url, c_path);
@@ -249,7 +257,7 @@ inline void TradingData::Logo()
 	bool overwrite = false;
 	std::string c_path = ConnectHttp::path + name + "/Logo";
 	File::mkdir(c_path);
-	c_path+="/Logo" + EXT;
+	c_path += "/Logo" + EXT;
 	std::string c_url = ConnectHttp::URL + name + "/logo";
 	if(overwrite||!File::isFile(c_path))
 	connect.RequestWriteJson(c_url, c_path);
@@ -261,7 +269,7 @@ inline void TradingData::News()
 	bool overwrite = true;
 	std::string c_path = ConnectHttp::path + name + "/News";
 	File::mkdir(c_path);
-	c_path+="/News" + EXT;
+	c_path += "/News" + EXT;
 	std::string c_url = ConnectHttp::URL + name + "/news/last/500";
 	if(overwrite||!File::isFile(c_path))
 	connect.RequestWriteJson(c_url, c_path);
@@ -273,7 +281,7 @@ inline void TradingData::OHLC()
 	bool overwrite = true;
 	std::string c_path = ConnectHttp::path + name + "/OHLC"; 
 	File::mkdir(c_path);
-	c_path+="/OHLC" + EXT;
+	c_path += "/OHLC" + EXT;
 	std::string c_url = ConnectHttp::URL + name + "/ohcl";
 	if(overwrite||!File::isFile(c_path))
 	connect.RequestWriteJson(c_url, c_path);
@@ -309,7 +317,7 @@ inline void TradingData::Price()
 	bool overwrite = true;
 	std::string c_path = ConnectHttp::path + name + "/Price";
 	File::mkdir(c_path);
-	c_path+="/Price" + EXT;
+	c_path += "/Price" + EXT;
 	std::string c_url = ConnectHttp::URL + name + "/price";
 	if(overwrite||!File::isFile(c_path))
 	connect.RequestWriteJson(c_url, c_path);
@@ -321,7 +329,7 @@ inline void TradingData::Quote()
 	bool overwrite = true;
 	std::string c_path = ConnectHttp::path + name + "/Quote";
 	File::mkdir(c_path);
-	c_path+="/Quote" + EXT;
+	c_path += "/Quote" + EXT;
 	std::string c_url = ConnectHttp::URL + name + "/quote";
 	if(overwrite||!File::isFile(c_path))
 	connect.RequestWriteJson(c_url, c_path);
@@ -333,7 +341,7 @@ inline void TradingData::Relevant()
 	bool overwrite = true;
 	std::string c_path = ConnectHttp::path + name + "/Relevant";
 	File::mkdir(c_path);
-	c_path+="/Relevant" + EXT;
+	c_path += "/Relevant" + EXT;
 	std::string c_url = ConnectHttp::URL + name + "/relevant";
 	if(overwrite||!File::isFile(c_path))
 	connect.RequestWriteJson(c_url, c_path);
@@ -345,7 +353,7 @@ inline void TradingData::Splits()
 	bool overwrite = true;
 	std::string c_path = ConnectHttp::path + name + "/Splits";
 	File::mkdir(c_path);
-	c_path+="/Splits" + EXT;
+	c_path += "/Splits" + EXT;
 	std::string c_url = ConnectHttp::URL + name + "/splits/5y";
 	if(overwrite||!File::isFile(c_path))
 	connect.RequestWriteJson(c_url, c_path);
@@ -357,7 +365,7 @@ inline void TradingData::TimeSeries()
 	bool overwrite = true;
 	std::string c_path = ConnectHttp::path + name + "/TimeSeries";
 	File::mkdir(c_path);
-	c_path+="/TimeSeries" + EXT;
+	c_path += "/TimeSeries" + EXT;
 	std::string c_url = ConnectHttp::URL + name + "/time-series";
 	if(overwrite||!File::isFile(c_path))
 	connect.RequestWriteJson(c_url, c_path);
@@ -369,7 +377,7 @@ inline void TradingData::VolumeByVenue()
 	bool overwrite = true;
 	std::string c_path = ConnectHttp::path + name + "/VolumeByVenue";
 	File::mkdir(c_path);
-	c_path+="/VolumeByVenue" + EXT;
+	c_path += "/VolumeByVenue" + EXT;
 	std::string c_url = ConnectHttp::URL + name + "/volume-by-venue";
 	if(overwrite||!File::isFile(c_path))
 	connect.RequestWriteJson(c_url, c_path);
@@ -381,7 +389,7 @@ inline void TradingData::S_Previous()
 	bool overwrite = true;
 	std::string c_path = ConnectHttp::path + "Market/";
 	File::mkdir(c_path);
-	c_path+="Previous" + EXT;
+	c_path += "Previous" + EXT;
 	std::string c_url = ConnectHttp::URL + "market/previous";
 	if(overwrite||!File::isFile(c_path))
 	connect.RequestWriteJson(c_url, c_path);
@@ -393,7 +401,7 @@ inline void TradingData::S_Symbols()
 	bool overwrite = false;
 	std::string c_path = ConnectHttp::path + "Symbols";
 	File::mkdir(c_path);
-	c_path+="/Symbols" + EXT;
+	c_path += "/Symbols" + EXT;
 	std::string c_url = "https://api.iextrading.com/1.0/ref-data/symbols";
 	if(overwrite||!File::isFile(c_path))
 	connect.RequestWriteJson(c_url, c_path);

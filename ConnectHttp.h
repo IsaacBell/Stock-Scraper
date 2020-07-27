@@ -41,7 +41,7 @@ private:
 	static size_t Cwriter(char * data, size_t size, size_t nmemb, char *&writerData);
 };
 
-const std::string ConnectHttp::URL = "https://api.iextrading.com/1.0/stock/";
+const std::string ConnectHttp::URL = "https://sandbox.iexapis.com/stable";
 const std::string ConnectHttp::path = "Data/";
 bool ConnectHttp::b_init = false;
 
@@ -60,13 +60,24 @@ inline std::string ConnectHttp::RequestReadJson(std::string url)
 {
 	std::string content;
 	CURL *curl = curl_easy_init();
+  struct curl_slist *chunk = NULL;
+
 	if (curl) {
+    /* Set URL */
 		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+
+    /* Set headers */
+    auto temp = curl_slist_append(chunk, "Accept: application/json");
+    auto headers = curl_slist_append(temp, "Content-Type: application/json");
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+
+    /* Set content */
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, Swriter);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &content);
 		curl_easy_perform(curl);
 		curl_easy_cleanup(curl);
 	}
+
 	return content;
 }
 
@@ -82,6 +93,8 @@ inline void ConnectHttp::CRequestReadJson(std::string url, char *&content)
 	}
 }
 
+// URL - target web address
+// Path - File location to log output to
 inline void ConnectHttp::RequestWriteJson(std::string url, std::string path)
 {
 	FILE *fp;

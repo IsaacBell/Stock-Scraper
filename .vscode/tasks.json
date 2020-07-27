@@ -20,18 +20,29 @@
         "cwd": "${workspaceFolder}"
       },
       "problemMatcher": ["$gcc"],
+      "group": "build"
+    },
+    {
+      "type": "shell",
+      "label": "build",
+      "command": "/usr/bin/clang++",
+      "args": [
+        "-std=c++17",
+        "-stdlib=libc++",
+        "-lcurl",
+        "-g",
+        "${file}",
+        "-o",
+        "${fileDirname}/${fileBasenameNoExtension}"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$gcc"],
       "group": {
         "kind": "build",
         "isDefault": true
       }
-    },
-    {
-      "label": "build",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "args": ["make build"]
     },
     {
         "label": "test",

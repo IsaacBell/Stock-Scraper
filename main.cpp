@@ -12,6 +12,9 @@ void importIEXData()
 {
 	// std::ifstream inFile(filePath);
 	std::string lineStr;
+  TradingData tsla("TSLA");
+
+  tsla.Company();
 
 	// read csv line by line
 	
@@ -71,9 +74,13 @@ double calc_twap(std::vector<std::vector<std::string>> &marketDataTable)
 
 int main()
 {
+  // string matrix
 	std::vector<std::vector<std::string>> marketDataTable;
+
 	std::cout << "reading market data" << std::endl;
+
 	importIEXData();
+
 	// std::cout << "calculating TWAP and VWAP" << std::endl;
 	// std::cout << "VWAP [0][0]: " << marketDataTable[0][0] << std::endl;
 	// std::cout << "TWAP [0][0]: " << marketDataTable[0][0] << std::endl;
