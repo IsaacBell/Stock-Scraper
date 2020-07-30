@@ -43,19 +43,6 @@
         "kind": "build",
         "isDefault": true
       }
-    },
-    {
-        "label": "test",
-        "group": "test",
-        "args": ["make test"]
-    },
-    {
-        "label": "deploy",
-        "args": ["make deploy"]
-    },
-    {
-        "label": "help",
-        "args": ["make help"]
     }
   ]
 }
