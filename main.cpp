@@ -13,9 +13,10 @@ void importIEXData()
 {
   std::string lineStr;
   TradingData tsla("TSLA");
+
   tsla.Company();
-  // tsla.Book();
-  // tsla.Earnings();
+  tsla.Book();
+  tsla.Earnings();
   tsla.Financials();
 }
 
