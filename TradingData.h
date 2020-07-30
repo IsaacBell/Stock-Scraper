@@ -339,7 +339,7 @@ inline void TradingData::SendGetRequest(std::string key, std::string endpoint=""
   auto end = std::chrono::system_clock::now();
   auto elapsedTmp = end - start;
   long elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(elapsedTmp).count();
-  auto benchmark = "\n[" + name + "] " + key + ": " ;
+  auto benchmark = "[" + name + "] " + key + ": " ;
   benchmark += std::to_string(elapsed) + "ms\n";
   std::cout << benchmark << std::endl;
 
