@@ -1,23 +1,26 @@
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
 #include <vector>
-#include <unordered_map>
 #include <time.h>
+#include <unordered_map>
+#include "curl/curl.h"
 #include "TradingData.h"
 #include "ConnectHttp.h"
 
 void importIEXData()
 {
   std::string lineStr;
-  TradingData tsla("TSLA");
+  TradingData aapl("aapl");
 
-  tsla.Company();
-  tsla.Book();
-  tsla.Earnings();
-  tsla.Financials();
+  aapl.Company();
+  std::cout << "\n----\n";
+  aapl.Book();
+  std::cout << "\n----\n";
+  aapl.Earnings();
+  std::cout << "\n----\n";
+  aapl.Financials();
 }
 
 // calculate vwap value
@@ -60,15 +63,17 @@ double calc_twap(std::vector<std::vector<std::string>> &marketDataTable)
 
 int main()
 {
-  std::cout << "StockScraper - BEGIN" << std::endl;
-
   std::vector<std::vector<std::string>> marketDataTable;
 
   importIEXData();
+
   // std::cout << "calculating TWAP and VWAP" << std::endl;
   // std::cout << "VWAP [0][0]: " << marketDataTable[0][0] << std::endl;
   // std::cout << "TWAP [0][0]: " << marketDataTable[0][0] << std::endl;
   // std::cout << "VWAP: " << calc_twap(marketDataTable) << std::endl;
   // std::cout << "TWAP: " << calc_vwap(marketDataTable) << std::endl;
+  
+  curl_global_cleanup();
+  
   return 0;
 }

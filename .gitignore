@@ -1,0 +1,10 @@
+.env
+
+c
+
+*dSYM*
+
+tmp/
+.tmp
+
+._include

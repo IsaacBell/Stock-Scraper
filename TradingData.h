@@ -314,6 +314,7 @@ inline void TradingData::SendGetRequest(std::string key, std::string endpoint=""
   std::string parentPath = ConnectHttp::path + name;
 
   std::locale loc;
+
   std::string lowercaseEndpoint = "";
   for (int i = 0; i < key.length(); ++i) {
     if ( isalpha(key[i]) )
@@ -325,14 +326,15 @@ inline void TradingData::SendGetRequest(std::string key, std::string endpoint=""
   File::mkdir(parentPath);
   File::mkdir(c_path);
   c_path += key + EXT;
-
-  std::string c_url = ConnectHttp::URL + "/stock/" + name +
-                      endpoint + "?token=";
+// "&types=quote,news,chart&range=1m&last=5&token=Tpk_7ce77b32d77a45a3af97e29b3ae931cb"
+  std::string c_url = ConnectHttp::URL + "/batch?symbols=" + name +
+                      endpoint + "&types=" + lowercaseEndpoint + "&token=";
 
   c_url += mApiPublicKey;
 
   if( OVERWRITE_DATA_REPORTS || !File::isFile(c_path) ) {
-    connect.RequestWriteJson(c_url, c_path);
+    connect.RequestReadJson(c_url);
+    // connect.RequestWriteJson(c_url, c_path);
   }
 
   // Benchmarking
