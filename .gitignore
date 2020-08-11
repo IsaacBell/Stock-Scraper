@@ -6,5 +6,6 @@ c
 
 tmp/
 .tmp
+.tmp/
 
 ._include
