@@ -53,13 +53,15 @@ private:
   static size_t Fwriter(void*ptr, size_t size, size_t nmemb, FILE* stream);
   static size_t Cwriter(char * data, size_t size, size_t nmemb, char *&writerData);
 };
-// const std::string ConnectHttp::URL = "https://sandbox.iexapis.com/v1";
+
 const std::string ConnectHttp::URL = "https://sandbox.iexapis.com/stable/stock/market";
 const std::string ConnectHttp::path = "Data/";
 bool ConnectHttp::b_init = false;
+
 ConnectHttp::ConnectHttp()
 {
 }
+
 ConnectHttp::~ConnectHttp()
 {
   //curl_global_cleanup();
@@ -106,7 +108,7 @@ inline std::string ConnectHttp::RequestReadJson(std::string url)
     }
   }
   curl_easy_cleanup(curl);
-  return "done";
+  return content;
 }
 
 inline void ConnectHttp::CRequestReadJson(std::string url, char *&content)

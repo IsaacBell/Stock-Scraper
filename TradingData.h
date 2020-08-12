@@ -25,36 +25,36 @@ public:
   ~TradingData();
   void EXECUTE();
   //void BatchRequests();
-  void Book();
-  void Charts();
-  void Company();
-  //void DelayedQuote();
-  void Dividends();
-  void Earnings();
-  void EffectiveSpread();
-  void Financials();
-  //void HistoricalPrices();
-  void KeyStats();
-  void LargestTrades();
-  void List();
-  void Logo();
-  void News();
-  void OHLC();
-  //void OpenClose(bool overwrite=true);
-  void Peers();
-  void Previous();
-  void Price();
-  void Quote();
-  void Relevant();
-  void Splits();
-  void TimeSeries();
-  void VolumeByVenue();
-  void S_Previous();
-  void S_Symbols();
+  std::string Book();
+  std::string Charts();
+  std::string Company();
+  //std::string DelayedQuote();
+  std::string Dividends();
+  std::string Earnings();
+  std::string EffectiveSpread();
+  std::string Financials();
+  //std::string HistoricalPrices();
+  std::string KeyStats();
+  std::string LargestTrades();
+  std::string List();
+  std::string Logo();
+  std::string News();
+  std::string OHLC();
+  //std::string OpenClose(bool overwrite=true);
+  std::string Peers();
+  std::string Previous();
+  std::string Price();
+  std::string Quote();
+  std::string Relevant();
+  std::string Splits();
+  std::string TimeSeries();
+  std::string VolumeByVenue();
+  std::string S_Previous();
+  std::string S_Symbols();
   std::string name;
   
 private:
-  typedef void (TradingData::*overall)();
+  typedef std::string (TradingData::*overall)();
   overall p_overall[N_FUNCTIONS] = {
     &TradingData::Book,
     &TradingData::Charts,
@@ -83,7 +83,7 @@ private:
 
   Date date;
   static ConnectHttp connect;
-  void dayChart(time_t tempdate);
+  std::string dayChart(time_t tempdate);
 
   std::thread p_thread[N_FUNCTIONS];
 
@@ -92,8 +92,8 @@ private:
   std::string mApiPrivateKey;
 
   std::string GetEnvVar(const std::string& key);
-  void SendGetRequest(std::string key);
-  void SendGetRequest(std::string key, std::string endpoint);
+  std::string SendGetRequest(std::string key);
+  std::string SendGetRequest(std::string key, std::string endpoint);
 };
 
 ConnectHttp TradingData::connect;
@@ -115,12 +115,13 @@ TradingData::~TradingData()
 {
 }
 
-void TradingData::Book()
+std::string TradingData::Book()
 {
-  SendGetRequest("Book");
+  return SendGetRequest("Book");
 }
 
-void TradingData::Charts()
+// todo
+std::string TradingData::Charts()
 {
   bool overwrite = true;
   std::string c_path = ConnectHttp::path + name;
@@ -143,44 +144,47 @@ void TradingData::Charts()
   for (int i = 0; i < t.size();i++) {
     t[i].join();
   }
+
+  return "Not implemented yet";
 }
 
-inline void TradingData::Company()
+inline std::string TradingData::Company()
 {
-  SendGetRequest("Company");
+  return SendGetRequest("Company");
 }
 
-inline void TradingData::Dividends()
+inline std::string TradingData::Dividends()
 {
-  SendGetRequest("Dividends");
+  return SendGetRequest("Dividends");
 }
 
-void TradingData::Earnings()
+std::string TradingData::Earnings()
 {
-  SendGetRequest("Earnings", "earnings/5y");
+  return SendGetRequest("Earnings", "earnings/5y");
 }
 
-void TradingData::EffectiveSpread()
+std::string TradingData::EffectiveSpread()
 {
-  SendGetRequest("EffectiveSpread", "/effective-spread");
+  return SendGetRequest("EffectiveSpread", "/effective-spread");
 }
 
-inline void TradingData::Financials()
+inline std::string TradingData::Financials()
 {
-  SendGetRequest("Financials");
+  return SendGetRequest("Financials");
 }
 
-inline void TradingData::KeyStats()
+inline std::string TradingData::KeyStats()
 {
-  SendGetRequest("Stats");
+  return SendGetRequest("Stats");
 }
 
-inline void TradingData::LargestTrades()
+inline std::string TradingData::LargestTrades()
 {
-  SendGetRequest("LargestTrades", "/largest-trades");
+  return SendGetRequest("LargestTrades", "/largest-trades");
 }
 
-inline void TradingData::List()
+// todo
+inline std::string TradingData::List()
 {
   bool overwrite = true;
   std::string c_path = ConnectHttp::path + name + "/List/";
@@ -193,69 +197,72 @@ inline void TradingData::List()
   connect.RequestWriteJson(c_url + "/iexvolume", c_path + "iexVolume" + EXT);
   connect.RequestWriteJson(c_url + "/iexpercent", c_path + "iexpercent" + EXT);
   std::cout << "List: status{finished}\n";
+
+  return "Not implemented yet";
 }
 
-inline void TradingData::Logo()
+inline std::string TradingData::Logo()
 {
-  SendGetRequest("Logo");
+  return SendGetRequest("Logo");
 }
 
-inline void TradingData::News()
+inline std::string TradingData::News()
 {
-  SendGetRequest("News", "/news/last/500");
+  return SendGetRequest("News", "/news/last/500");
 }
 
-inline void TradingData::OHLC()
+inline std::string TradingData::OHLC()
 {
-  SendGetRequest("OHLC");
+  return SendGetRequest("OHLC");
 }
 
-inline void TradingData::Peers()
+inline std::string TradingData::Peers()
 {
-  SendGetRequest("Peers");
+  return SendGetRequest("Peers");
 }
 
-inline void TradingData::Previous()
+inline std::string TradingData::Previous()
 {
-  SendGetRequest("Previous");
+  return SendGetRequest("Previous");
 }
 
-inline void TradingData::Price()
+inline std::string TradingData::Price()
 {
-  SendGetRequest("Price");
+  return SendGetRequest("Price");
 }
 
-inline void TradingData::Quote()
+inline std::string TradingData::Quote()
 {
-  SendGetRequest("Quote");
+  return SendGetRequest("Quote");
 }
 
-inline void TradingData::Relevant()
+inline std::string TradingData::Relevant()
 {
-  SendGetRequest("Relevant");
+  return SendGetRequest("Relevant");
 }
 
-inline void TradingData::Splits()
+inline std::string TradingData::Splits()
 {
-  SendGetRequest("Splits", "splits/5y");
+  return SendGetRequest("Splits", "splits/5y");
 }
 
-inline void TradingData::TimeSeries()
+inline std::string TradingData::TimeSeries()
 {
-  SendGetRequest("TimeSeries", "time-series");
+  return SendGetRequest("TimeSeries", "time-series");
 }
 
-inline void TradingData::VolumeByVenue()
+inline std::string TradingData::VolumeByVenue()
 {
-  SendGetRequest("VolumeByVenue", "/volume-by-venue");
+  return SendGetRequest("VolumeByVenue", "/volume-by-venue");
 }
 
-inline void TradingData::S_Previous()
+inline std::string TradingData::S_Previous()
 {
-  SendGetRequest("Market", "market/previous");
+  return SendGetRequest("Market", "market/previous");
 }
 
-inline void TradingData::S_Symbols()
+// todo
+inline std::string TradingData::S_Symbols()
 {
   bool overwrite = false;
   std::string c_path = ConnectHttp::path + "Symbols";
@@ -265,9 +272,12 @@ inline void TradingData::S_Symbols()
   if(overwrite||!File::isFile(c_path))
   connect.RequestWriteJson(c_url, c_path);
   std::cout << "S_Symbols: status{finished}\n";
+
+  return "Not implemented yet";
 }
 
-inline void TradingData::dayChart(time_t tempdate)
+// todo
+inline std::string TradingData::dayChart(time_t tempdate)
 {
   tm* temp = localtime(&tempdate);
   std::stringstream mon;mon << std::setfill('0') << std::setw(2) << temp->tm_mon;
@@ -276,6 +286,8 @@ inline void TradingData::dayChart(time_t tempdate)
   std::string c_url = ConnectHttp::URL + name + "/chart/date/" + s_date;
   std::string c_path = ConnectHttp::path + name +"/Chart_1d/" +s_date+EXT;
   connect.RequestAddJson(c_url, c_path, "minute");
+
+  return "Not yet implemented";
 }
 
 inline void TradingData::EXECUTE()
@@ -301,13 +313,14 @@ std::string TradingData::GetEnvVar(const std::string &key)
   }
 }
 
-inline void TradingData::SendGetRequest(std::string key)
+inline std::string TradingData::SendGetRequest(std::string key)
 {
   return SendGetRequest(key, "");
 }
 
-inline void TradingData::SendGetRequest(std::string key, std::string endpoint="")
+inline std::string TradingData::SendGetRequest(std::string key, std::string endpoint="")
 {
+  std::string output = "";
   const auto start = std::chrono::system_clock::now();
 
   std::string c_path     = ConnectHttp::path + name + "/" + key + "/";
@@ -326,14 +339,13 @@ inline void TradingData::SendGetRequest(std::string key, std::string endpoint=""
   File::mkdir(parentPath);
   File::mkdir(c_path);
   c_path += key + EXT;
-// "&types=quote,news,chart&range=1m&last=5&token=Tpk_7ce77b32d77a45a3af97e29b3ae931cb"
   std::string c_url = ConnectHttp::URL + "/batch?symbols=" + name +
                       endpoint + "&types=" + lowercaseEndpoint + "&token=";
 
   c_url += mApiPublicKey;
 
   if( OVERWRITE_DATA_REPORTS || !File::isFile(c_path) ) {
-    connect.RequestReadJson(c_url);
+    output += connect.RequestReadJson(c_url);
     // connect.RequestWriteJson(c_url, c_path);
   }
 
@@ -345,5 +357,5 @@ inline void TradingData::SendGetRequest(std::string key, std::string endpoint=""
   benchmark += std::to_string(elapsed) + "ms\n";
   std::cout << benchmark << std::endl;
 
-  return;
+  return output;
 }
