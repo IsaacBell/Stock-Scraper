@@ -1,12 +1,12 @@
 # Stock Scraper (Working Title)
 
-### Current Version 0.1
+### Current Version 0.15
 
-This is a project I'm using to learn C++.
+Good morning.
+
+This is a project I'm using to learn C++. Eventually, this is going to analyze stock data and perform market transactions.
 
 Thanks to https://github.com/dani2442 for providing reference code which helped to get started.
-
-Eventually, this is going to analyze stock data and perform market transactions. We're still at the first steps...
 
 ## Description
 
@@ -18,12 +18,12 @@ Initial target algorithms are Time-Weighted Average Price (TWAP) and Volume-Weig
 
 Hm. I can tell you how I'm running this on my OSX machine (yes). The makefile and such will probably need some tweaking for cross-platform utility.
 
-### Tools You Will Need (OSX)
+### Tools You Will Need
 
 * VCPkg (?)
-* Visual Studio Code (optional)
-* XCode (should be up to date)
 * libcurl
+
+### Mac Installation
 
 ```
 git clone https://github.com/IsaacBell/Stock-Scraper.git
