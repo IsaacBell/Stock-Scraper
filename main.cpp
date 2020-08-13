@@ -70,6 +70,45 @@ double calculate_vwap(std::string book_data)
   return total_sum / volume_sum;
 }
 
+double calc_twap(std::string book_data, int n_iterations)
+{
+  // wip
+  Document document;
+  document.Parse(book_data.c_str());
+
+  auto aapl = document["AAPL"].GetObject();
+  auto book = aapl["book"].GetObject();
+
+  double price_sum    = 0.0;
+  double daily_open   = 0.0;
+  double daily_close  = 0.0;
+  double high_price   = 0.0;
+  double low_price    = 0.0;
+  double total_sum    = 0.0;
+
+  auto symbol         = book["quote"]["symbol"].GetString();
+  auto volume         = book["quote"]["volume"].GetInt();
+  auto daily_low      = book["quote"]["low"].GetDouble();
+  auto daily_high     = book["quote"]["high"].GetDouble();
+  auto change_percent = book["quote"]["changePercent"].GetDouble();
+
+  if (!book["quote"]["open"].IsNull())
+    daily_open  = book["quote"]["open"].GetDouble();
+  if (!book["quote"]["close"].IsNull())
+    daily_close = book["quote"]["close"].GetDouble();
+
+  std::cout << "\n----" << symbol << "Key Stats----\n" << std::endl;
+  std::cout << "volume: "      << volume         << std::endl;
+  std::cout << "daily open: "  << daily_open     << std::endl;
+  std::cout << "daily close: " << daily_close    << std::endl;
+  std::cout << "high price: "  << high_price     << std::endl;
+  std::cout << "low price: "   << low_price      << std::endl;
+  std::cout << "change %: "    << change_percent << std::endl;
+  std::cout << "total sum: "   << total_sum      << std::endl;
+
+  return price_sum / n_iterations;
+}
+
 void importIEXData()
 {
   std::string lineStr;
