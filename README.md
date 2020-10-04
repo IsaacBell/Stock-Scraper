@@ -1,10 +1,8 @@
-# Stock Scraper (Working Title)
+This is a command-line tool.
 
-### Current Version 0.15
+The `main.cpp` file analyzes stock data in real time, and gives a full print-out of current and historical trade data. For now, in the remote repository this code is set to sandbox mode.
 
-Good morning.
-
-This is a project I'm using to learn C++. Eventually, this is going to analyze stock data and perform market transactions.
+What you're looking at is a very early version. In the future I plan to build this into a 1.0 with a UI.
 
 Thanks to https://github.com/dani2442 for providing reference code which helped to get started.
 
@@ -16,7 +14,7 @@ Initial target algorithms are Time-Weighted Average Price (TWAP) and Volume-Weig
 
 ## Installation
 
-Hm. I can tell you how I'm running this on my OSX machine (yes). The makefile and such will probably need some tweaking for cross-platform utility.
+Hm. I can tell you how I'm running this on my OSX machine (yes). Cross-compatibility is forthcoming.
 
 ### Tools You Will Need
 
