@@ -6,6 +6,8 @@
 #include <time.h>
 #include <unordered_map>
 #include "curl/curl.h"
+
+#include "Email.h"
 #include "TradingData.h"
 #include "ConnectHttp.h"
 #include "include/rapidjson/document.h"
@@ -130,11 +132,11 @@ void importIEXData()
 int main()
 {
   // todo - store data in a matrix?
-  std::vector<std::vector<std::string>> marketDataTable;
+  // std::vector<std::vector<std::string>> marketDataTable;
 
-  importIEXData();
+  // importIEXData();
 
-  curl_global_cleanup();
+  // curl_global_cleanup();
 
   return 0;
 }
