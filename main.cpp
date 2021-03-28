@@ -113,21 +113,23 @@ void importIEXData()
 {
   std::string lineStr;
   TradingData aapl("aapl");
+ 
+  // auto company    = aapl.Company();
+  // auto book       = aapl.Book();
+  // auto earnings   = aapl.Earnings();
+  // auto financials = aapl.Financials();
+  // auto intraday = aapl.Intraday();
+  // double vwap     = calculate_vwap(book);
 
-  auto company    = aapl.Company();
-  auto book       = aapl.Book();
-  auto earnings   = aapl.Earnings();
-  auto financials = aapl.Financials();
-  double vwap = calculate_vwap(book);
-
-  std::cout << "\n----Company----\n" << company << "\n";
-  std::cout << "\n----Book----\n" << book << "\n";
-  std::cout << "\n----Earnings----\n" << earnings << "\n";
-  std::cout << "\n----Financials----\n" << financials << "\n";
-  std::cout << "\n----VWAP----\n" << vwap << "\n";
+  // std::cout << "\n----Company----\n" << company << "\n";
+  // std::cout << "\n----Book----\n" << book << "\n";
+  // std::cout << "\n----Earnings----\n" << earnings << "\n";
+  // std::cout << "\n----Financials----\n" << financials << "\n";
+  // std::cout << "\n----Intraday Prices----\n" << intraday << "\n";
+  // std::cout << "\n----VWAP----\n" << vwap << "\n";
 }
 
-int main()
+int main1()
 {
   // todo - store data in a matrix?
   std::vector<std::vector<std::string>> marketDataTable;
@@ -138,3 +140,12 @@ int main()
 
   return 0;
 }
+
+int main2()
+{
+  std::map<std::string, auto> marketDataTable;
+  boost::asio::io_service io_service;
+
+  
+}
+

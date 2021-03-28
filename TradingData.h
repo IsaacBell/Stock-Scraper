@@ -14,8 +14,8 @@
 #include <locale>       /* std::tolower, std::locale */
 
 
-#define N_FUNCTIONS 23
-#define OVERWRITE_DATA_REPORTS true
+constexpr unsigned N_FUNCTIONS {24};
+constexpr bool OVERWRITE_DATA_REPORTS {true};
 
 class TradingData
 {
@@ -35,6 +35,7 @@ public:
   std::string Financials();
   //std::string HistoricalPrices();
   std::string KeyStats();
+  std::string Intraday();
   std::string LargestTrades();
   std::string List();
   std::string Logo();
@@ -64,6 +65,7 @@ private:
     &TradingData::EffectiveSpread,
     &TradingData::Financials,
     &TradingData::KeyStats,
+    &TradingData::Intraday,
     &TradingData::LargestTrades,
     &TradingData::List,
     &TradingData::Logo,
@@ -102,7 +104,8 @@ TradingData::TradingData(std::string name):
   name(name),
   date(),
   mApiPublicKey(
-    [this](){ return TradingData::GetEnvVar("API_SANDBOX_PUB_KEY"); }()
+    [this](){ return TradingData::GetEnvVar("API_SANDBOX_PUB_KEY"); }
+    ()
   )
 {
   std::string TMP_DIR = "./tmp/";
@@ -171,6 +174,11 @@ std::string TradingData::EffectiveSpread()
 inline std::string TradingData::Financials()
 {
   return SendGetRequest("Financials");
+}
+
+inline std::string TradingData::Intraday()
+{
+  return SendGetRequest("IntradayPrices", "/intraday-prices");
 }
 
 inline std::string TradingData::KeyStats()
